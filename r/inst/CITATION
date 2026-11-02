@@ -1,0 +1,18 @@
+bibentry(
+  bibtype = "Manual",
+  title = "saneabr: Acesso aos dados do SNIS e do SINISA",
+  author = person("Théo", "de Paula"),
+  year = "2026",
+  note = "R package version 0.1.0",
+  url = "https://github.com/theoadepaula/saneabr",
+  textVersion = "de Paula, T. (2026). saneabr: Acesso aos dados do SNIS e do SINISA. R package version 0.1.0."
+)
+bibentry(
+  bibtype = "Misc",
+  title = "Sistema Nacional de Informações sobre Saneamento (SNIS) e Sistema Nacional de Informações em Saneamento Básico (SINISA)",
+  author = person("Ministério das Cidades", role = "aut"),
+  organization = "Secretaria Nacional de Saneamento Ambiental",
+  year = "2025",
+  url = "https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento",
+  textVersion = "Brasil. Ministério das Cidades. Secretaria Nacional de Saneamento Ambiental. SNIS e SINISA. Disponível em: https://www.gov.br/cidades."
+)

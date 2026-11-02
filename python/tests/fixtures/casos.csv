@@ -1,0 +1,9 @@
+caso,arquivo,sistema,modulo,ano,tabela
+snis_2022_informacoes,snis_rs_2022_mini.zip,snis,rs,2022,informacoes
+snis_2022_indicadores,snis_rs_2022_mini.zip,snis,rs,2022,indicadores
+snis_2022_unidades_fluxos,snis_rs_2022_mini.zip,snis,rs,2022,unidades_fluxos
+snis_2021_sem_ibge,snis_rs_sem_ibge.xlsx,snis,rs,2021,informacoes
+sinisa_2024_manejo,sinisa_rs_2024_mini.zip,sinisa,rs,2024,manejo
+sinisa_2024_coleta_destinacao,sinisa_rs_2024_mini.zip,sinisa,rs,2024,coleta_destinacao
+sinisa_2024_veiculos,sinisa_rs_2024_mini.zip,sinisa,rs,2024,veiculos
+sinisa_2024_indicadores,sinisa_rs_2024_mini.zip,sinisa,rs,2024,indicadores

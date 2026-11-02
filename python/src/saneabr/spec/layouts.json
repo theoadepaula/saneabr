@@ -1,0 +1,163 @@
+{
+  "versao_spec": "0.1.0",
+  "_descricao": "Regras de leitura das planilhas do SNIS e do SINISA. O algoritmo que as aplica esta descrito em spec/README.md; os pacotes R e Python so o executam.",
+
+  "texto": {
+    "_descricao": "Normalizacao de texto usada para casar rotulos e nomes de aba. 'acentos_de' e 'acentos_para' tem o mesmo comprimento: cada caractere de um vira o do outro.",
+    "acentos_de":   "áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑºª²³",
+    "acentos_para": "aaaaaeeeeiiiiooooouuuucnAAAAAEEEEIIIIOOOOOUUUUCNoa23",
+    "espacos_extra": ["\u00a0", "\u2007", "\u202f", "\ufeff"],
+    "substituir": [["\r\n", "\n"], ["\r", "\n"]],
+    "_substituir": "trocas literais aplicadas a toda celula antes de aparar (o xlrd entrega LF onde o readxl entrega CR LF)",
+    "_espacos_extra": "caracteres tratados como espaco, alem de espaco ASCII, tab e quebras de linha",
+    "_slug": "minusculas, acentos trocados, tudo que nao for [a-z0-9] vira '_', sem '_' repetido nem nas pontas"
+  },
+
+  "codigo": {
+    "_descricao": "Codigo de variavel (GE001, CO119, IN015, CAD1000, GTR1030*, UP088 - lat.). Normalizacao: tira os caracteres de 'remover' e todo espaco, passa a maiusculas; o codigo e o grupo 1 de 'regex'.",
+    "remover": ["*"],
+    "regex": "^([A-Z]{2,3}_?[0-9]{3,4}[A-Z]?)([^A-Z0-9].*)?$",
+    "min_por_linha": 3,
+    "linhas_busca": 40
+  },
+
+  "valores": {
+    "na": ["", "-", "--", "null", "NULL", "Null", "NA", "N/A", "n/a", "#DIV/0!", "#N/A", "#VALUE!", "#VALOR!", "#REF!", "#NAME?", "#NOME?", "#NUM!", "#NULL!"],
+    "numero_regex": "^[-+]?([0-9]+([.][0-9]*)?|[.][0-9]+)([eE][-+]?[0-9]+)?$",
+    "virgula_decimal_regex": "^[-+]?[0-9]{1,3}([.][0-9]{3})*,[0-9]+$|^[-+]?[0-9]+,[0-9]+$",
+    "texto_forcado_regex": ["^id_", "^cnpj", "^sigla", "^codigo", "_codigo$"],
+    "_texto_forcado": "colunas cujo nome casa com algum destes padroes ficam como texto, mesmo que todos os valores sejam numeros",
+    "inteiro_forcado_regex": ["^ano$"]
+  },
+
+  "municipio": {
+    "_descricao": "Chave municipal. 7 digitos = codigo IBGE; 6 digitos = IBGE sem o digito verificador (SNIS). O DV e calculado com 'pesos' (produto > 9 tem os digitos somados; DV = (10 - soma mod 10) mod 10), salvo as 'excecoes', que o IBGE atribuiu fora da regra.",
+    "regex": "^[0-9]{6,7}$",
+    "pesos": [1, 2, 1, 2, 1, 2],
+    "excecoes": {
+      "220191": "2201919",
+      "220198": "2201988",
+      "220225": "2202251",
+      "261153": "2611533",
+      "311783": "3117836",
+      "315213": "3152131",
+      "430587": "4305871",
+      "520393": "5203939",
+      "520396": "5203962"
+    },
+    "_excecoes": "conferido contra os 5.570 codigos de SINISA RS 2024 (Cod_IBGE): so estes 9 nao seguem a regra",
+    "colunas_7": ["id_municipio"],
+    "colunas_6": ["id_municipio_snis"],
+    "converter_6_para_7": ["id_municipio_origem", "id_municipio_destino"]
+  },
+
+  "nome_uf": {
+    "_descricao": "Coluna de texto em que pelo menos 'limiar' dos valores nao vazios tem a forma 'Nome/UF' e partida em duas: o nome fica na coluna, a UF vai para '<coluna>_uf', logo a direita.",
+    "regex": "^(.*[^ ]) */ *([A-Z]{2})$",
+    "limiar": 0.9,
+    "sufixo": "_uf"
+  },
+
+  "nomes_padrao": {
+    "_descricao": "Rotulo do cabecalho (em slug) -> nome da coluna no resultado. Vale para colunas sem codigo de variavel. Primeiro as chaves compostas (texto mais proximo acima + texto da linha de codigos; segundo texto acima + primeiro texto acima), depois cada texto do cabecalho, de cima para baixo a partir da linha de codigos (ver README).",
+    "codigo_do_ibge": "id_municipio",
+    "cod_ibge": "id_municipio",
+    "codigo_do_municipio": "id_municipio_snis",
+    "municipio": "municipio",
+    "nom_mun": "municipio",
+    "municipio_sede_da_unidade": "municipio",
+    "municipio_sede_unidade": "municipio",
+    "uf": "uf",
+    "nome_da_regiao": "regiao",
+    "nom_regiao": "regiao",
+    "macrorregiao": "regiao",
+    "sigla_da_regiao": "sigla_regiao",
+    "codigo_da_regiao": "id_regiao",
+    "ano": "ano",
+    "ano_de_referencia": "ano",
+    "identificacao_da_faixa_populacional": "faixa_populacional",
+    "codigo_do_orgao_responsavel_pela_gestao": "id_orgao",
+    "nome_do_orgao_responsavel_pela_gestao": "orgao",
+    "nome_do_orgao_responsavel_pelos_servicos_de_limpeza_urbana_e_manejo_de_residuos_solidos_no_municipio": "orgao",
+    "sigla": "sigla_orgao",
+    "sigla_do_orgao_responsavel_pela_gestao": "sigla_orgao",
+    "sigla_do_orgao_responsavel_pelos_servicos_de_limpeza_urbana_e_manejo_de_residuos_solidos_no_municipio": "sigla_orgao",
+    "natureza_juridica_do_orgao_municipal_responsavel": "natureza_juridica",
+    "natureza_juridica": "natureza_juridica",
+    "abrangencia": "abrangencia",
+    "tipo_de_servico": "tipo_servico",
+    "pop_tot": "POP_TOT",
+    "total_populacao": "POP_TOT",
+    "pop_urb": "POP_URB",
+    "populacao_urbana": "POP_URB",
+    "undcod": "id_unidade",
+    "codigo_da_unidade": "id_unidade",
+    "capital": "capital",
+    "cnpj": "cnpj",
+    "sim_nao": "respondeu",
+    "cod_ibge_mun_orig": "id_municipio_origem",
+    "cod_ibge_mun_origem": "id_municipio_origem",
+    "codigo_ibge_do_municipio_de_origem": "id_municipio_origem",
+    "codigo_do_ibge_municipio_de_origem": "id_municipio_origem",
+    "codigo_do_ibge_do_municipio_de_origem": "id_municipio_origem",
+    "cod_ibge_mun_dest": "id_municipio_destino",
+    "codigo_do_ibge_do_municipio_de_destino": "id_municipio_destino",
+    "macrorregiao_do_municipio_de_origem": "regiao_origem",
+    "nom_regiao_mun_orig": "regiao_origem",
+    "nom_regiao_mun_origem": "regiao_origem",
+    "area_km2": "area_km2",
+    "situacao_da_classificacao": "situacao_classificacao",
+    "municipio_onde_esta_a_unidade_codigo": "id_municipio_snis",
+    "municipio_de_localizacao_codigo": "id_municipio_snis",
+    "municipio_onde_esta_a_unidade": "municipio",
+    "municipio_de_localizacao_da_unidade": "municipio",
+    "municipio_de_localizacao": "municipio",
+    "nome": "municipio",
+    "municipios_codigo": "id_municipio_snis"
+  },
+
+  "eras": [
+    {
+      "id": "snis_rs_2014_2022",
+      "sistema": "SNIS",
+      "modulo": "RS",
+      "anos": [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+      "arquivo_catalogo_regex": "(?i)^(DiagRS[0-9]{4}_XLS.*|Planilhas?_RS_?[0-9]{4}.*)[.]zip$",
+      "tabela_padrao": "informacoes",
+      "tabelas": {
+        "informacoes":            {"arquivo_regex": "(?i)Planilha_Informacoes_RS",                  "aba_regex": null, "descricao": "Informacoes municipais (uma linha por municipio)"},
+        "indicadores":            {"arquivo_regex": "(?i)Planilha_Indicadores_RS",                  "aba_regex": null, "descricao": "Indicadores municipais (uma linha por municipio)"},
+        "politicas_planos":       {"arquivo_regex": "(?i)Planilha_Politicas_Planos",                "aba_regex": null, "descricao": "Politicas, planos e consorcios (2016 em diante)", "anos": [2016, 2017, 2018, 2019, 2020, 2021, 2022]},
+        "unidades_cadastro":      {"arquivo_regex": "(?i)Planilha_Unidades_Cadastro_Nacional",      "aba_regex": null, "descricao": "Cadastro nacional de unidades de processamento (uma linha por unidade)"},
+        "unidades_informacoes":   {"arquivo_regex": "(?i)Planilha_Unidades_Informacoes",            "aba_regex": null, "descricao": "Informacoes das unidades de processamento"},
+        "unidades_fluxos":        {"arquivo_regex": "(?i)Planilha_Unidades_Fluxos",                 "aba_regex": null, "descricao": "Fluxo de residuos entre municipios e unidades"},
+        "unidades_lixoes_aterros":{"arquivo_regex": "(?i)Planilha_Unidades_Lixoes_Aterros",         "aba_regex": null, "descricao": "Caracteristicas de lixoes e aterros"}
+      }
+    },
+    {
+      "id": "sinisa_rs_2023_2024",
+      "sistema": "SINISA",
+      "modulo": "RS",
+      "anos": [2023, 2024],
+      "arquivo_catalogo_regex": "(?i)^SINISA_RESIDUOS_Planilhas_[0-9]{4}[.](zip|rar)$",
+      "tabela_padrao": "manejo",
+      "tabelas": {
+        "indicadores":               {"arquivo_regex": "(?i)SINISA_RESIDUOS_Indicadores",                 "aba_regex": null,                "descricao": "Indicadores municipais"},
+        "cobertura":                 {"arquivo_regex": "(?i)Formulario_Cobertura",                        "aba_regex": null,                "descricao": "Cobertura da coleta"},
+        "despesas":                  {"arquivo_regex": "(?i)Formulario_Despesas",                         "aba_regex": null,                "descricao": "Despesas, investimentos e pessoal"},
+        "receitas":                  {"arquivo_regex": "(?i)Formulario_Receitas",                         "aba_regex": null,                "descricao": "Receitas e cobrancas"},
+        "limpeza_urbana":            {"arquivo_regex": "(?i)Formulario_Limpeza_Urbana",                   "aba_regex": null,                "descricao": "Limpeza urbana"},
+        "manejo":                    {"arquivo_regex": "(?i)Formulario_Manejo",                           "aba_regex": "^manejo_residuos",  "descricao": "Manejo de residuos solidos urbanos (uma linha por municipio)"},
+        "coleta_destinacao":         {"arquivo_regex": "(?i)Formulario_Manejo",                           "aba_regex": "^manejo_coleta",    "descricao": "Rotas de coleta e destinacao (varias linhas por municipio)"},
+        "veiculos":                  {"arquivo_regex": "(?i)Formulario_Manejo",                           "aba_regex": "^manejo_veiculos",  "descricao": "Veiculos (varias linhas por municipio)"},
+        "cooperativas":              {"arquivo_regex": "(?i)Formulario_Manejo",                           "aba_regex": "^manejo_cooperativas", "descricao": "Cooperativas e associacoes de catadores"},
+        "disposicao_final":          {"arquivo_regex": "(?i)Formulario_Infraestrutura_Destinacao_Final",  "aba_regex": "^infra_disposicao", "descricao": "Unidades de disposicao final: caracteristicas"},
+        "disposicao_final_entradas": {"arquivo_regex": "(?i)Formulario_Infraestrutura_Destinacao_Final",  "aba_regex": "^disp_final_entradas", "descricao": "Unidades de disposicao final: entradas de residuos"},
+        "processamento":             {"arquivo_regex": "(?i)Formulario_Infraestrutura_Unidades_de_Processamento", "aba_regex": "^infra_proces", "descricao": "Unidades de processamento e tratamento: caracteristicas"},
+        "processamento_entradas":    {"arquivo_regex": "(?i)Formulario_Infraestrutura_Unidades_de_Processamento", "aba_regex": "^proces_trat_entradas", "descricao": "Unidades de processamento e tratamento: entradas de residuos"},
+        "transbordo":                {"arquivo_regex": "(?i)Formulario_Infraestrutura_Unidades_de_Transbordo", "aba_regex": "^infra_transbordo", "descricao": "Unidades de transbordo: caracteristicas"},
+        "transbordo_entradas":       {"arquivo_regex": "(?i)Formulario_Infraestrutura_Unidades_de_Transbordo", "aba_regex": "^transbordo_entradas", "descricao": "Unidades de transbordo: entradas de residuos"}
+      }
+    }
+  ]
+}

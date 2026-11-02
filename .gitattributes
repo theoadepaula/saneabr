@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.zip binary
+*.xlsx binary
+*.xls binary
+*.rar binary
+*.gz binary

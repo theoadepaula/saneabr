@@ -1,0 +1,10 @@
+{
+  "_descricao": "Parametros de download comuns aos dois pacotes. O gov.br ja respondeu 403 a HEAD e a cliente sem User-Agent, e corta conexoes longas: baixe com GET, num arquivo .part, e renomeie so no fim.",
+  "user_agent": "Mozilla/5.0 (compatible; saneabr/{versao}; +https://github.com/theoadepaula/saneabr)",
+  "timeout_segundos": 600,
+  "tentativas": 3,
+  "sufixo_parcial": ".part",
+  "variavel_cache": "SANEABR_CACHE",
+  "variavel_extracao": "SANEABR_EXTRACAO",
+  "_cache": "Arquivos baixados ficam em <cache>/<SISTEMA>/<MODULO>/<ano>/<arquivo>; planilhas extraidas em <extracao>/<sha256[0:16]>/ (padrao: <cache>/_extraido)."
+}

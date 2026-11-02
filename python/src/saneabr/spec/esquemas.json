@@ -1,0 +1,27 @@
+{
+  "_descricao": "Colunas obrigatorias de cada tabela da spec, na ordem em que sao gravadas. O importador recusa arquivo de origem sem alguma delas.",
+  "catalogo": {
+    "arquivo": "catalogo.csv",
+    "colunas": ["sistema", "modulo", "ano", "tipo", "arquivo", "url", "sha256", "formato", "bytes", "data_verificacao"]
+  },
+  "dic_snis": {
+    "arquivo": "dicionarios/dic_snis.csv",
+    "colunas": ["codigo", "codigo_original", "grafias", "modulo", "tipo", "nome", "definicao", "unidade", "formula", "informacoes_envolvidas", "referencia_snis", "codigo_antigo", "anos_planilhas", "anos_glossario", "ano_versao_usada", "documento_origem", "pagina", "qualidade", "url_documento"]
+  },
+  "dic_sinisa": {
+    "arquivo": "dicionarios/dic_sinisa.csv",
+    "colunas": ["codigo", "codigo_original", "grafias", "modulo", "tipo", "nome", "definicao", "unidade", "formula", "informacoes_envolvidas", "referencia_snis", "codigo_antigo", "anos_planilhas", "anos_glossario", "ano_versao_usada", "documento_origem", "pagina", "qualidade", "url_documento"]
+  },
+  "correspondencia_snis_sinisa": {
+    "arquivo": "dicionarios/correspondencia_snis_sinisa.csv",
+    "colunas": ["codigo_snis", "codigo_sinisa", "modulo", "modulo_snis", "tipo", "tipo_relacao", "evidencia_documental", "evidencia", "observacao", "nome_snis", "nome_sinisa", "unidade_snis", "unidade_sinisa", "similaridade_nome"]
+  },
+  "mudancas_dentro_snis": {
+    "arquivo": "dicionarios/mudancas_dentro_snis.csv",
+    "colunas": ["modulo", "codigo", "tipo_mudanca", "ano", "de", "para", "evidencia", "metodo"]
+  },
+  "glossarios_versoes": {
+    "arquivo": "dicionarios/glossarios_versoes.csv.gz",
+    "colunas": ["codigo_original", "nome", "definicao", "unidade", "formula_texto", "informacoes_envolvidas", "referencias", "referencia_snis", "codigo_antigo", "pagina", "qualidade", "fonte", "modulo", "ano_glossario", "tipo", "documento", "url", "codigo"]
+  }
+}
