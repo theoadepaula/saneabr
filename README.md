@@ -52,5 +52,5 @@ Testes que precisam dos arquivos completos rodam com `SANEABR_DADOS_BRUTOS`;
 os de rede, com `SANEABR_TESTAR_REDE` (`true` no R, `1` no Python). Os dois
 pulam no CRAN e no CI.
 
-Código: MIT. `spec/`: CC BY 4.0 (ver `spec/LICENCA.md`). Dados: Ministério das
+Código e `spec/`: MIT (os textos dos glossários transcritos na spec são do Ministério; ver `spec/LICENCA.md`). Dados: Ministério das
 Cidades, baixados da fonte pelo usuário.

@@ -89,10 +89,10 @@ o que não é distribuição.
 | Item | Vai junto do pacote? | Por quê |
 |---|---|---|
 | Código (R e Python) | sim, **MIT** | trabalho do autor |
-| `catalogo.csv` (URLs, tamanhos, SHA-256) | sim, **CC BY 4.0** | metadados levantados pelo autor; nenhum dado do Ministério |
-| `layouts.json`, `rede.json`, `esquemas.json` | sim, **CC BY 4.0** | regras de leitura, trabalho do autor |
-| `correspondencia_snis_sinisa.csv`, `mudancas_dentro_snis.csv` | sim, **CC BY 4.0** | classificação do autor; as evidências citam documento e página |
-| `dic_snis.csv`, `dic_sinisa.csv` | sim | estrutura e normalização: CC BY 4.0. Os textos de nome, definição e unidade são do Ministério das Cidades, transcritos sem alteração, com documento, página e URL de origem em cada linha (Decreto 8.777, art. 4º) |
+| `catalogo.csv` (URLs, tamanhos, SHA-256) | sim, **MIT** | metadados levantados pelo autor; nenhum dado do Ministério |
+| `layouts.json`, `rede.json`, `esquemas.json` | sim, **MIT** | regras de leitura, trabalho do autor |
+| `correspondencia_snis_sinisa.csv`, `mudancas_dentro_snis.csv` | sim, **MIT** | classificação do autor; as evidências citam documento e página |
+| `dic_snis.csv`, `dic_sinisa.csv` | sim | estrutura e normalização: MIT. Os textos de nome, definição e unidade são do Ministério das Cidades, transcritos sem alteração, com documento, página e URL de origem em cada linha (Decreto 8.777, art. 4º) |
 | `glossarios_versoes.csv.gz` (11 MB descompactado) | **não** (só no repositório) | tamanho (limite de 5 MB do CRAN) e sem uso na API da v0.1 |
 | Fixtures de teste (recortes de 8 a 12 linhas de planilhas reais) | sim | dados públicos de livre utilização, com a fonte citada em `fixtures/README.md` |
 | Planilhas completas (zip, rar, xlsx) | **não** | baixadas da fonte pelo usuário, com SHA-256 conferido. Não é exigência da licença: é para não envelhecer (a fonte republica arquivos), não inflar o pacote e deixar claro de onde vem o dado |

@@ -1,0 +1,77 @@
+# Confere o saneabr a cada push e pull request: a spec copiada para os dois
+# pacotes está em sincronia, o pacote R passa no R CMD check e a biblioteca
+# Python passa no pytest e no build, em Windows, macOS e Linux.
+#
+# Os testes de rede e de dados completos pulam aqui (precisam de
+# SANEABR_TESTAR_REDE / SANEABR_DADOS_BRUTOS); rode-os na máquina local.
+
+name: check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  spec:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+      - name: Spec em sincronia com r/ e python/
+        run: Rscript ferramentas/sincronizar_spec.R --checar
+
+  r:
+    name: R (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      _R_CHECK_FORCE_SUGGESTS_: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          working-directory: r
+          extra-packages: any::rcmdcheck
+          needs: check
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          working-directory: r
+          args: 'c("--no-manual", "--as-cran")'
+          error-on: '"warning"'
+
+  python:
+    name: Python ${{ matrix.python }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: bsdtar para ler o rar do SINISA 2023 (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y libarchive-tools
+      - name: Instalar
+        working-directory: python
+        run: python -m pip install ".[teste,rar]" build twine
+      - name: Testes
+        working-directory: python
+        run: python -m pytest -q
+      - name: Build e twine check
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
+        working-directory: python
+        run: |
+          python -m build
+          python -m twine check dist/*

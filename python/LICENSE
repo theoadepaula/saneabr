@@ -21,5 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Os arquivos em src/saneabr/spec/ (catalogo, layouts, dicionarios e
-correspondencia) estao sob CC BY 4.0; os textos dos glossarios citados neles
-sao do Ministerio das Cidades. Ver spec/LICENCA.md no repositorio.
+correspondencia) tambem estao sob MIT, exceto os textos dos glossarios
+transcritos neles, que sao do Ministerio das Cidades (dados de livre
+utilizacao com credito a fonte). Ver spec/LICENCA.md no repositorio.
