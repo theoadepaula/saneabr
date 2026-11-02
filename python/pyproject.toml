@@ -34,6 +34,8 @@ teste = ["pytest>=7"]
 [project.urls]
 Homepage = "https://github.com/theoadepaula/saneabr"
 Issues = "https://github.com/theoadepaula/saneabr/issues"
+Changelog = "https://github.com/theoadepaula/saneabr/blob/master/python/CHANGELOG.md"
+Documentation = "https://github.com/theoadepaula/saneabr#readme"
 
 [tool.setuptools.packages.find]
 where = ["src"]

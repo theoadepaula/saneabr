@@ -36,12 +36,36 @@ test_that("baixar() usa o cache, baixa com .part e confere o SHA-256", {
   expect_identical(chamadas, 1)
 })
 
-test_that("baixar() falha com HTTP diferente de 200 sem deixar arquivo", {
+test_that("HTTP diferente de 200: mensagem e NULL, sem erro, warning nem arquivo", {
   d <- withr::local_tempdir()
   withr::local_envvar(SANEABR_CACHE = d)
   httr2::local_mocked_responses(function(req) httr2::response(status_code = 404))
-  expect_error(suppressMessages(baixar("sinisa", "rs", 2024)), class = "saneabr_http")
-  expect_length(list.files(d, recursive = TRUE), 0)
+  expect_no_warning(
+    expect_message(p <- baixar("sinisa", "rs", 2024), class = "saneabr_fonte_indisponivel")
+  )
+  expect_null(p)
+  expect_length(list.files(d, recursive = TRUE, all.files = TRUE), 0)
+})
+
+test_that("sem conexao: baixar() e ler() devolvem NULL com mensagem", {
+  d <- withr::local_tempdir()
+  withr::local_envvar(SANEABR_CACHE = d)
+  httr2::local_mocked_responses(function(req) stop("Could not resolve host: www.gov.br"))
+  expect_no_warning(
+    expect_message(p <- baixar("snis", "rs", 2022), "resolve host")
+  )
+  expect_null(p)
+  expect_no_warning(
+    expect_message(x <- ler("snis", "rs", 2022), class = "saneabr_fonte_indisponivel")
+  )
+  expect_null(x)
+})
+
+test_that("fonte_disponivel() nunca gera erro", {
+  httr2::local_mocked_responses(function(req) stop("sem rede"))
+  expect_false(fonte_disponivel())
+  httr2::local_mocked_responses(function(req) httr2::response(status_code = 206))
+  expect_true(fonte_disponivel())
 })
 
 test_that("o User-Agent identifica o pacote", {

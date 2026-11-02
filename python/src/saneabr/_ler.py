@@ -49,13 +49,16 @@ def tabelas(sistema, modulo, ano) -> pd.DataFrame:
     return pd.DataFrame(linhas, columns=["tabela", "descricao", "padrao"])
 
 
-def ler(sistema, modulo, ano, tabela=None, arquivo=None) -> pd.DataFrame:
+def ler(sistema, modulo, ano, tabela=None, arquivo=None) -> pd.DataFrame | None:
     """Lê uma tabela do SNIS ou do SINISA num DataFrame arrumado.
 
     Uma coluna por variável, com o código normalizado como nome (CO119, IN015,
     GTR1028), ``id_municipio`` com 7 dígitos e ``ano``. Colunas só com números
     viram float; "-", "null" e vazio viram NA. Na v0.1, só RS: SNIS 2014–2022
     e SINISA 2023–2024. ``arquivo`` aceita um zip, rar ou planilha já baixado.
+
+    Se o arquivo não está no cache e a fonte não responde, emite
+    ``FonteIndisponivelAviso`` e devolve ``None``, sem exceção.
     """
     sistema, modulo, ano = padronizar_sistema(sistema), padronizar_modulo(modulo), padronizar_ano(ano)
     era = _achar_era(sistema, modulo, ano)
@@ -66,6 +69,8 @@ def ler(sistema, modulo, ano, tabela=None, arquivo=None) -> pd.DataFrame:
     tab = era["tabelas"][tabela]
     if arquivo is None:
         arqs = baixar(sistema, modulo, ano, tipo="dados")
+        if arqs is None:
+            return None
         rx = re.compile(era["arquivo_catalogo_regex"])
         hit = [a for a in arqs if rx.search(a.name)]
         arquivo = hit[0] if hit else arqs[0]

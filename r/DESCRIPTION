@@ -15,7 +15,7 @@ Description: Downloads, caches and reads the municipal spreadsheets of the
     spreadsheets are parsed into tidy data frames with normalised variable
     codes and 7-digit 'IBGE' municipality codes. Includes data dictionaries
     and a documented correspondence table between 'SNIS' and 'SINISA'
-    variable codes. The reading rules are shared with a Python library of
+    variable codes. The reading rules are shared with a 'Python' library of
     the same name.
 License: MIT + file LICENSE
 URL: https://github.com/theoadepaula/saneabr

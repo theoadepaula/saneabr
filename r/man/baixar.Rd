@@ -19,18 +19,29 @@ baixar(sistema, modulo, ano, tipo = "dados", forcar = FALSE)
 \item{forcar}{Se `TRUE`, baixa de novo mesmo que já esteja no cache.}
 }
 \value{
-Invisível: os caminhos locais dos arquivos.
+Invisível: um vetor de texto com os caminhos locais dos arquivos,
+  ou `NULL` se algum arquivo não pôde ser baixado.
 }
 \description{
 Baixa da fonte oficial (gov.br/cidades) os arquivos do [catalogo()] que
 correspondem a `sistema`, `modulo`, `ano` e `tipo`, e confere o SHA-256.
 Se o arquivo já está no cache, não baixa de novo. Se o SHA-256 não bate
-com o catalogado, avisa: é sinal de que a fonte republicou o arquivo.
+com o catalogado, avisa (warning): é sinal de que a fonte republicou o
+arquivo.
 }
+\section{Sem internet ou com a fonte fora do ar}{
+
+Se a fonte não responde, responde com erro HTTP ou a conexão cai,
+`baixar()` não gera erro nem warning: emite uma mensagem (condição de
+classe `saneabr_fonte_indisponivel`) e devolve `NULL` invisível. Teste o
+resultado com `is.null()` em scripts. Para saber antes se a fonte está no
+ar, use [fonte_disponivel()].
+}
+
 \examples{
 \donttest{
-if (interactive()) {
-  baixar("sinisa", "rs", 2024)
+if (interactive() && fonte_disponivel()) {
+  arquivos <- baixar("sinisa", "rs", 2024)
 }
 }
 }

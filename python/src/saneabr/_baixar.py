@@ -84,13 +84,32 @@ def conferir_sha(caminho, esperado: str, url: str | None = None) -> bool:
     return True
 
 
-def baixar_url(url: str, destino: Path) -> Path:
+class FonteIndisponivelAviso(UserWarning):
+    """A fonte (gov.br) não respondeu, respondeu com erro HTTP ou a conexão caiu.
+
+    ``baixar()`` e ``ler()`` emitem este aviso e devolvem ``None``, sem
+    exceção, como o pacote R (que emite uma mensagem e devolve ``NULL``).
+    """
+
+
+def _avisar_indisponivel(url: str, motivo: str) -> None:
+    warnings.warn(
+        f"Não consegui baixar da fonte: {motivo}. {url} — o gov.br pode estar fora do ar "
+        "ou ter mudado o endereço. Tente de novo mais tarde; se persistir, avise em "
+        "https://github.com/theoadepaula/saneabr/issues",
+        FonteIndisponivelAviso,
+        stacklevel=4,
+    )
+
+
+def baixar_url(url: str, destino: Path) -> Path | None:
+    """Baixa url em destino; devolve None (com FonteIndisponivelAviso) se a fonte falhar."""
     import requests
 
     cfg = rede()
     destino.parent.mkdir(parents=True, exist_ok=True)
     parcial = destino.with_name(destino.name + cfg["sufixo_parcial"])
-    ultimo = None
+    motivo = ""
     try:
         for _ in range(cfg["tentativas"]):
             try:
@@ -101,26 +120,50 @@ def baixar_url(url: str, destino: Path) -> Path:
                     timeout=cfg["timeout_segundos"],
                 ) as r:
                     if r.status_code != 200:
-                        raise RuntimeError(f"O servidor respondeu HTTP {r.status_code}: {url}")
+                        _avisar_indisponivel(url, f"o servidor respondeu HTTP {r.status_code}")
+                        return None
                     with open(parcial, "wb") as f:
                         for bloco in r.iter_content(1 << 20):
                             f.write(bloco)
                 # so renomeia no fim: conexao cortada nao deixa arquivo truncado
                 os.replace(parcial, destino)
                 return destino
-            except (requests.ConnectionError, requests.Timeout) as e:
-                ultimo = e
-        raise RuntimeError(f"Falha ao baixar {url}: {ultimo}")
+            except requests.RequestException as e:
+                motivo = str(e)
+        _avisar_indisponivel(url, motivo)
+        return None
     finally:
         if parcial.exists():
             parcial.unlink()
 
 
-def baixar(sistema, modulo, ano, tipo="dados", forcar=False) -> list[Path]:
+def fonte_disponivel(timeout: float = 10) -> bool:
+    """A fonte oficial está respondendo? Pede o primeiro byte do menor arquivo de dados.
+
+    Devolve True ou False; nunca levanta exceção.
+    """
+    import requests
+
+    cat = catalogo(tipo="dados")
+    url = cat.loc[cat["bytes"].idxmin(), "url"]
+    try:
+        r = requests.get(url, headers={"User-Agent": _user_agent(), "Range": "bytes=0-0"},
+                         timeout=timeout)
+        r.close()
+        return r.status_code in (200, 206)
+    except Exception:
+        return False
+
+
+def baixar(sistema, modulo, ano, tipo="dados", forcar=False) -> list[Path] | None:
     """Baixa para o cache os arquivos do catálogo e confere o SHA-256.
 
     Se o arquivo já está no cache, não baixa de novo. Se o SHA-256 difere do
     catalogado, emite ``ShaDiferenteWarning``. Devolve os caminhos locais.
+
+    Sem internet ou com a fonte fora do ar, não levanta exceção: emite
+    ``FonteIndisponivelAviso`` e devolve ``None``. Para saber antes se a fonte
+    está no ar, use ``fonte_disponivel()``.
     """
     sistema = padronizar_sistema(sistema)
     modulo = padronizar_modulo(modulo)
@@ -136,7 +179,8 @@ def baixar(sistema, modulo, ano, tipo="dados", forcar=False) -> list[Path]:
         destino = dir_cache() / r.sistema / r.modulo / str(r.ano) / r.arquivo
         if forcar or not destino.exists():
             print(f"Baixando {r.arquivo} ({r.bytes / 1e6:.1f} MB)...")
-            baixar_url(r.url, destino)
+            if baixar_url(r.url, destino) is None:
+                return None
         conferir_sha(destino, r.sha256, r.url)
         caminhos.append(destino)
     return caminhos

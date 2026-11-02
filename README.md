@@ -243,6 +243,11 @@ documental; os sugeridos apenas por semelhança de nome ficam atrás de
 | `correspondencia(modulo, candidatas = FALSE)` | pares de códigos SNIS ↔ SINISA, com tipo de relação e evidência |
 | `mudancas(modulo)` | códigos renomeados, fórmulas e unidades alteradas *dentro* do SNIS |
 | `dir_cache()` | onde ficam os arquivos baixados (mude com a variável `SANEABR_CACHE`) |
+| `fonte_disponivel()` | diz se o gov.br está respondendo; nunca gera erro |
+
+Sem internet, ou com o gov.br fora do ar, `baixar()` e `ler()` não quebram o
+script: avisam (mensagem no R, `FonteIndisponivelAviso` no Python) e devolvem
+`NULL` / `None`.
 
 ## O que já dá para ler
 

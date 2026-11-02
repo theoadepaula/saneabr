@@ -1,3 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^cran-comments\.md$
+^README\.Rmd$
+^\.github$
+^CRAN-SUBMISSION$
+^revdep$
+^.*\.tar\.gz$
+^.*\.Rcheck$

@@ -77,22 +77,44 @@ conferir_sha <- function(caminho, esperado, url = NULL) {
   invisible(TRUE)
 }
 
-baixar_url <- function(url, destino) {
+requisicao <- function(url) {
   rede <- spec_rede()
-  dir.create(dirname(destino), recursive = TRUE, showWarnings = FALSE)
-  parcial <- paste0(destino, rede$sufixo_parcial)
-  on.exit(unlink(parcial), add = TRUE)
   req <- httr2::request(url)
   req <- httr2::req_user_agent(req, user_agent())
   req <- httr2::req_timeout(req, rede$timeout_segundos)
   req <- httr2::req_retry(req, max_tries = rede$tentativas,
                           retry_on_failure = TRUE)
-  req <- httr2::req_error(req, is_error = function(r) FALSE)
-  resp <- httr2::req_perform(req, path = parcial)
+  httr2::req_error(req, is_error = function(r) FALSE)
+}
+
+# Aviso unico de fonte fora do ar, sem erro nem warning (politica do CRAN
+# para recursos da internet): quem chamou recebe NULL e decide.
+avisar_indisponivel <- function(url, motivo) {
+  cli::cli_inform(c(
+    "!" = "N\u00e3o consegui baixar da fonte: {motivo}.",
+    "i" = "{.url {url}}",
+    "i" = "O gov.br pode estar fora do ar ou ter mudado o endere\u00e7o. Tente de novo mais tarde; se persistir, avise em {.url https://github.com/theoadepaula/saneabr/issues}."
+  ), class = "saneabr_fonte_indisponivel")
+}
+
+# Devolve o caminho baixado ou NULL (com mensagem) se a fonte falhar.
+baixar_url <- function(url, destino) {
+  rede <- spec_rede()
+  dir.create(dirname(destino), recursive = TRUE, showWarnings = FALSE)
+  parcial <- paste0(destino, rede$sufixo_parcial)
+  on.exit(unlink(parcial), add = TRUE)
+  resp <- tryCatch(
+    httr2::req_perform(requisicao(url), path = parcial),
+    error = function(e) e
+  )
+  if (inherits(resp, "error")) {
+    avisar_indisponivel(url, conditionMessage(resp))
+    return(NULL)
+  }
   st <- httr2::resp_status(resp)
   if (st != 200) {
-    cli::cli_abort(c("O servidor respondeu HTTP {st}.", "i" = "{.url {url}}"),
-                   class = "saneabr_http")
+    avisar_indisponivel(url, paste("o servidor respondeu HTTP", st))
+    return(NULL)
   }
   if (!file.exists(parcial)) writeBin(httr2::resp_body_raw(resp), parcial)
   # so renomeia no fim: conexao cortada nao deixa arquivo truncado no cache
@@ -102,12 +124,46 @@ baixar_url <- function(url, destino) {
   destino
 }
 
+#' A fonte oficial está respondendo?
+#'
+#' Faz um pedido curto ao gov.br (o primeiro byte do menor arquivo de dados do
+#' [catalogo()]) e diz se ele respondeu. Útil para guardar exemplos e scripts
+#' que dependem da rede.
+#'
+#' @param timeout Tempo máximo de espera, em segundos.
+#' @return `TRUE` se a fonte respondeu com sucesso, `FALSE` caso contrário.
+#'   Nunca gera erro.
+#' @examples
+#' \donttest{
+#' fonte_disponivel()
+#' }
+#' @export
+fonte_disponivel <- function(timeout = 10) {
+  cat_ <- catalogo(tipo = "dados")
+  url <- cat_$url[which.min(cat_$bytes)]
+  req <- httr2::request(url)
+  req <- httr2::req_user_agent(req, user_agent())
+  req <- httr2::req_timeout(req, timeout)
+  req <- httr2::req_headers(req, Range = "bytes=0-0")
+  req <- httr2::req_error(req, is_error = function(r) FALSE)
+  resp <- tryCatch(httr2::req_perform(req), error = function(e) NULL)
+  !is.null(resp) && httr2::resp_status(resp) %in% c(200L, 206L)
+}
+
 #' Baixa arquivos do SNIS e do SINISA para o cache
 #'
 #' Baixa da fonte oficial (gov.br/cidades) os arquivos do [catalogo()] que
 #' correspondem a `sistema`, `modulo`, `ano` e `tipo`, e confere o SHA-256.
 #' Se o arquivo já está no cache, não baixa de novo. Se o SHA-256 não bate
-#' com o catalogado, avisa: é sinal de que a fonte republicou o arquivo.
+#' com o catalogado, avisa (warning): é sinal de que a fonte republicou o
+#' arquivo.
+#'
+#' @section Sem internet ou com a fonte fora do ar:
+#' Se a fonte não responde, responde com erro HTTP ou a conexão cai,
+#' `baixar()` não gera erro nem warning: emite uma mensagem (condição de
+#' classe `saneabr_fonte_indisponivel`) e devolve `NULL` invisível. Teste o
+#' resultado com `is.null()` em scripts. Para saber antes se a fonte está no
+#' ar, use [fonte_disponivel()].
 #'
 #' @param sistema `"snis"` ou `"sinisa"`.
 #' @param modulo `"rs"`, `"ae"`, `"ap"` ou `"gm"`.
@@ -115,12 +171,13 @@ baixar_url <- function(url, destino) {
 #' @param tipo Tipo de arquivo no catálogo. Padrão: `"dados"`. Use
 #'   `tipo = NULL` para baixar também glossários e relatórios.
 #' @param forcar Se `TRUE`, baixa de novo mesmo que já esteja no cache.
-#' @return Invisível: os caminhos locais dos arquivos.
+#' @return Invisível: um vetor de texto com os caminhos locais dos arquivos,
+#'   ou `NULL` se algum arquivo não pôde ser baixado.
 #' @seealso [dir_cache()], [ler()]
 #' @examples
 #' \donttest{
-#' if (interactive()) {
-#'   baixar("sinisa", "rs", 2024)
+#' if (interactive() && fonte_disponivel()) {
+#'   arquivos <- baixar("sinisa", "rs", 2024)
 #' }
 #' }
 #' @export
@@ -142,7 +199,7 @@ baixar <- function(sistema, modulo, ano, tipo = "dados", forcar = FALSE) {
     if (forcar || !file.exists(destino)) {
       mb <- format(round(r$bytes / 1e6, 1), nsmall = 1)
       cli::cli_inform("Baixando {.file {r$arquivo}} ({mb} MB)...")
-      baixar_url(r$url, destino)
+      if (is.null(baixar_url(r$url, destino))) return(invisible(NULL))
     }
     conferir_sha(destino, r$sha256, r$url)
     caminhos[i] <- destino

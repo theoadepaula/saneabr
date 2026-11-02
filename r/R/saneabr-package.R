@@ -5,7 +5,8 @@
 #' Saneamento Básico (SINISA), do Ministério das Cidades.
 #'
 #' Funções principais: [catalogo()], [baixar()], [ler()], [tabelas()],
-#' [dicionario()], [correspondencia()], [mudancas()] e [dir_cache()].
+#' [dicionario()], [correspondencia()], [mudancas()], [dir_cache()] e
+#' [fonte_disponivel()].
 #'
 #' Os dados não vêm com o pacote: são baixados da fonte oficial. Cite o
 #' Ministério das Cidades ao usá-los (veja `citation("saneabr")`).

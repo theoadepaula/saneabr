@@ -20,7 +20,7 @@ da era (`"informacoes"` no SNIS, `"manejo"` no SINISA).}
 planilha) para ler em vez de buscar no cache.}
 }
 \value{
-Um tibble.
+Um tibble, ou `NULL` invisível se o arquivo não pôde ser baixado.
 }
 \description{
 Baixa (se preciso) o arquivo de dados do ano, extrai a planilha da tabela
@@ -51,9 +51,16 @@ SNIS e SINISA não usam os mesmos códigos nem os mesmos conceitos. Não
 empilhe anos dos dois sistemas sem passar por [correspondencia()].
 }
 
+\section{Sem internet ou com a fonte fora do ar}{
+
+Se o arquivo ainda não está no cache e a fonte não responde, `ler()` emite
+uma mensagem (classe `saneabr_fonte_indisponivel`) e devolve `NULL`
+invisível, sem erro nem warning. Veja [baixar()] e [fonte_disponivel()].
+}
+
 \examples{
 \donttest{
-if (interactive()) {
+if (interactive() && fonte_disponivel()) {
   rs22 <- ler("snis", "rs", 2022)
   sinisa24 <- ler("sinisa", "rs", 2024, tabela = "indicadores")
 }

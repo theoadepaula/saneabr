@@ -32,8 +32,20 @@ ser baixados com `baixar()`.
 **Cache:** `platformdirs.user_cache_dir("saneabr")`, ou a variável de ambiente
 `SANEABR_CACHE`.
 
-**Antes de empilhar SNIS e SINISA**, leia a ajuda de `correspondencia()`: os
-códigos e conceitos mudaram (por exemplo, CO119 não é GTR1028).
+**Sem internet**, ou com o gov.br fora do ar, `baixar()` e `ler()` não levantam
+exceção: emitem `saneabr.FonteIndisponivelAviso` e devolvem `None`.
+`saneabr.fonte_disponivel()` diz antes se a fonte está respondendo.
+
+**Antes de empilhar SNIS e SINISA**, leia a ajuda de `correspondencia()` e as
+[notas de mudanças](https://github.com/theoadepaula/saneabr/blob/master/spec/NOTAS-MUDANCAS.md): os códigos e
+conceitos mudaram (por exemplo, CO119 não é GTR1028).
+
+Mais:
+[documentação completa e exemplos](https://github.com/theoadepaula/saneabr#readme) ·
+[como as planilhas são lidas](https://github.com/theoadepaula/saneabr/blob/master/spec/README.md) ·
+[licença dos dados](https://github.com/theoadepaula/saneabr/blob/master/LICENCA-DADOS.md) ·
+[mudanças por versão](https://github.com/theoadepaula/saneabr/blob/master/python/CHANGELOG.md) ·
+[problemas e sugestões](https://github.com/theoadepaula/saneabr/issues)
 
 Dados: Brasil, Ministério das Cidades, SNIS e SINISA. Livre utilização com
 citação da fonte. Código: MIT.

@@ -62,3 +62,30 @@ Abra uma [issue](https://github.com/theoadepaula/saneabr/issues) dizendo o
 sistema, o módulo, o ano, a tabela e o município. Se o erro estiver na planilha
 oficial (e não na leitura), ele vai para a seção de cuidados do README: o
 pacote não corrige dado do Ministério, só o lê com fidelidade.
+
+## Publicar uma versão (só o mantenedor)
+
+R e Python saem juntos, com a mesma versão em `r/DESCRIPTION` e
+`python/pyproject.toml`; o workflow `publicar-pypi` recusa versões diferentes.
+
+1. Atualize a versão nos dois arquivos, `r/NEWS.md`, `python/CHANGELOG.md` e
+   `r/cran-comments.md`. Rode os testes, a paridade e `sincronizar_spec.R --checar`.
+2. **TestPyPI:** Actions → `publicar-pypi` → *Run workflow*. Confira a página
+   em <https://test.pypi.org/p/saneabr> e instale com
+   `pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ saneabr`.
+3. **CRAN:** na pasta `r/`, `devtools::submit_cran()` (ou envie o tarball de
+   `R CMD build` em <https://cran.r-project.org/submit.html>) e confirme o
+   e-mail que o CRAN manda ao mantenedor.
+4. **PyPI:** depois do aceite no CRAN, crie a release `vX.Y.Z` no GitHub. A
+   publicação dispara o envio ao PyPI.
+
+O PyPI não usa token: é *Trusted Publishing*. O publicador confiável já tem de
+estar cadastrado (uma vez por site):
+
+| Campo | PyPI (pypi.org) | TestPyPI (test.pypi.org) |
+|---|---|---|
+| PyPI Project Name | `saneabr` | `saneabr` |
+| Owner | `theoadepaula` | `theoadepaula` |
+| Repository name | `saneabr` | `saneabr` |
+| Workflow name | `publicar-pypi.yml` | `publicar-pypi.yml` |
+| Environment name | `pypi` | `testpypi` |

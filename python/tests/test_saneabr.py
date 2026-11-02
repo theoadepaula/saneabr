@@ -173,9 +173,37 @@ def test_baixar_http_erro(tmp_path, monkeypatch):
 
     monkeypatch.setenv("SANEABR_CACHE", str(tmp_path))
     monkeypatch.setattr(requests, "get", lambda *a, **k: _RespostaFalsa(404))
-    with pytest.raises(RuntimeError, match="404"):
-        saneabr.baixar("sinisa", "rs", 2024)
+    with pytest.warns(saneabr.FonteIndisponivelAviso, match="404"):
+        assert saneabr.baixar("sinisa", "rs", 2024) is None
     assert not [p for p in tmp_path.rglob("*") if p.is_file()]
+
+
+def test_sem_conexao_devolve_none(tmp_path, monkeypatch):
+    import requests
+
+    def sem_rede(*a, **k):
+        raise requests.ConnectionError("Could not resolve host: www.gov.br")
+
+    monkeypatch.setenv("SANEABR_CACHE", str(tmp_path))
+    monkeypatch.setattr(requests, "get", sem_rede)
+    with pytest.warns(saneabr.FonteIndisponivelAviso, match="resolve host"):
+        assert saneabr.baixar("snis", "rs", 2022) is None
+    with pytest.warns(saneabr.FonteIndisponivelAviso):
+        assert saneabr.ler("snis", "rs", 2022) is None
+    assert saneabr.fonte_disponivel() is False
+
+
+def test_fonte_disponivel_com_206(monkeypatch):
+    import requests
+
+    class R:
+        status_code = 206
+
+        def close(self):
+            pass
+
+    monkeypatch.setattr(requests, "get", lambda *a, **k: R())
+    assert saneabr.fonte_disponivel() is True
 
 
 # --- dados reais e rede (pulados no CI) ----------------------------------------

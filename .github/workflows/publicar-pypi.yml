@@ -1,0 +1,89 @@
+# Publica a biblioteca Python saneabr com Trusted Publishing (OIDC): sem token
+# guardado no GitHub. O PyPI e o TestPyPI confiam neste workflow porque o
+# publicador confiavel foi cadastrado la (ver CONTRIBUTING.md, "Publicar uma versao").
+#
+#   workflow_dispatch  -> TestPyPI (ambiente "testpypi")
+#   release published  -> PyPI     (ambiente "pypi")
+#
+# Antes de publicar: build em python/, twine check e a conferencia de que a
+# versao do pyproject.toml e a do r/DESCRIPTION sao iguais (e iguais a tag
+# vX.Y.Z, no caso de release). R e Python andam juntos.
+
+name: publicar-pypi
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Versoes de Python, R e tag batem
+        env:
+          TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || '' }}
+        run: |
+          py=$(python -c "import tomllib; print(tomllib.load(open('python/pyproject.toml','rb'))['project']['version'])")
+          r=$(sed -n 's/^Version: *//p' r/DESCRIPTION)
+          echo "pyproject.toml: $py | r/DESCRIPTION: $r | tag: ${TAG:-(nenhuma)}"
+          if [ "$py" != "$r" ]; then
+            echo "::error::Versoes diferentes: pyproject.toml $py, r/DESCRIPTION $r"; exit 1
+          fi
+          if [ -n "$TAG" ] && [ "$TAG" != "v$py" ]; then
+            echo "::error::A tag $TAG nao bate com a versao v$py"; exit 1
+          fi
+      - uses: r-lib/actions/setup-r@v2
+      - name: Spec em sincronia
+        run: Rscript ferramentas/sincronizar_spec.R --checar
+      - name: Build e twine check
+        working-directory: python
+        run: |
+          python -m pip install build twine
+          python -m build
+          python -m twine check --strict dist/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distribuicoes
+          path: python/dist/
+
+  testpypi:
+    if: github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/saneabr
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: distribuicoes
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+
+  pypi:
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/saneabr
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: distribuicoes
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1

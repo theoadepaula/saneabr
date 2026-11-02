@@ -68,10 +68,15 @@ tabelas <- function(sistema, modulo, ano) {
 #'   da era (`"informacoes"` no SNIS, `"manejo"` no SINISA).
 #' @param arquivo Opcional: caminho de um arquivo já baixado (zip, rar ou
 #'   planilha) para ler em vez de buscar no cache.
-#' @return Um tibble.
+#' @section Sem internet ou com a fonte fora do ar:
+#' Se o arquivo ainda não está no cache e a fonte não responde, `ler()` emite
+#' uma mensagem (classe `saneabr_fonte_indisponivel`) e devolve `NULL`
+#' invisível, sem erro nem warning. Veja [baixar()] e [fonte_disponivel()].
+#'
+#' @return Um tibble, ou `NULL` invisível se o arquivo não pôde ser baixado.
 #' @examples
 #' \donttest{
-#' if (interactive()) {
+#' if (interactive() && fonte_disponivel()) {
 #'   rs22 <- ler("snis", "rs", 2022)
 #'   sinisa24 <- ler("sinisa", "rs", 2024, tabela = "indicadores")
 #' }
@@ -91,6 +96,7 @@ ler <- function(sistema, modulo, ano, tabela = NULL, arquivo = NULL) {
   }
   if (is.null(arquivo)) {
     arqs <- baixar(sistema, modulo, ano, tipo = "dados")
+    if (is.null(arqs)) return(invisible(NULL))
     hit <- arqs[grepl(era$arquivo_catalogo_regex, basename(arqs), perl = TRUE)]
     arquivo <- if (length(hit)) hit[1] else arqs[1]
   } else if (!file.exists(arquivo)) {
