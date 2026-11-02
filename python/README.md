@@ -1,4 +1,4 @@
-# saneabr (Python)
+# saneabr (Python) <img align="right" src="https://raw.githubusercontent.com/theoadepaula/saneabr/master/logo/saneabr.png" alt="logo do saneabr" width="120">
 
 Acesso aos dados do **SNIS** (Sistema Nacional de Informações sobre Saneamento)
 e do **SINISA** (Sistema Nacional de Informações em Saneamento Básico), do
