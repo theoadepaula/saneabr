@@ -274,10 +274,61 @@ monta séries históricas de resíduos sólidos (detalhes, documentos e páginas
    para população total. O par mais limpo entre os dois sistemas é a taxa de
    cobertura da coleta (`IN015` → `IRS0001`).
 
-A tabela de correspondência está **em validação**: os pares de resíduos sólidos
-estão sendo conferidos à mão, um a um, contra os glossários e contra os dados.
-O resultado entra nas próximas versões, com a data e o responsável de cada
-validação.
+### Quem já tratou da transição (e o que ainda falta)
+
+A correspondência do saneabr parte do que já foi publicado. Até onde a busca
+alcançou (novembro de 2026), **não existe uma tabela pública que ligue os
+códigos de resíduos sólidos do SNIS aos do SINISA**. O que existe, e merece o
+crédito:
+
+- **Ministério das Cidades**: os glossários do SINISA trazem uma coluna
+  "similar no SNIS" e, em parte dos campos, uma "Referência" ao código antigo.
+  É a fonte primária de quase todos os pares documentados do pacote, e também
+  onde a validação achou erros (por exemplo, `IN018`, que é produtividade, ligado
+  a `IFR0002`, que é empregados por mil habitantes).
+- **Agência Nacional de Águas e Saneamento Básico (ANA)**: a
+  [Análise de Impacto Regulatório da Norma de Referência de indicadores de
+  resíduos sólidos urbanos](https://participacao-social.ana.gov.br/api/files/2025_08_29_RAIR_Indicadores_RSU_LU_v12-1756906338835.pdf)
+  (29/08/2025, p. 19) trata `IN031` e `IRS3010` (recuperação de recicláveis)
+  como uma série contínua. O par entrou na validação, com a ressalva de que o
+  `IRS3010` inclui orgânicos e o `IN031` não.
+- **Instituto Trata Brasil e GO Associados**: o
+  [Estudo sobre as alterações metodológicas do SINISA em relação ao SNIS](https://tratabrasil.org.br/wp-content/uploads/2025/07/Versao-Final-do-Estudo-da-GO-Associados-Trata-Brasil-SNIS-SINISA_Rio-corrigido-3.pdf)
+  (15/07/2025) lista os indicadores de **água e esgoto** que se mantiveram e os
+  que mudaram, e monta uma série consolidada SNIS+SINISA. Não cobre resíduos
+  sólidos, mas será a referência quando o pacote ler o módulo `"ae"`.
+- **Projeto Acertar (Ministério das Cidades e ABAR)**: o
+  [Ofício nº 130/2025](https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/sinisa/projeto-acertar/SEI_MIDR5858479Ofcio.pdf)
+  menciona uma "Planilha Acertar – Transição SNIS_SINISA" (SEI nº 5901479),
+  acordada com as agências reguladoras para a auditoria de água e esgoto. Ela
+  não está publicada.
+- **Instituto Água e Saneamento**: registra, nas suas
+  [fontes e notas técnicas](https://www.aguaesaneamento.org.br/municipios-e-saneamento/fontes-notas-tecnicas),
+  que o SINISA "ainda não foi compatibilizado com a série histórica".
+
+Se você conhece outro trabalho, abra uma issue: ele entra aqui com o devido
+crédito.
+
+### Ajude a validar
+
+A tabela de correspondência de resíduos sólidos está **em validação**. Cada um
+dos 147 pares documentados (mais 10 pares novos) foi lido nos glossários e,
+quando possível, testado nos dados: para os municípios que responderam aos dois
+sistemas, compara-se o valor do SNIS 2022 com o do SINISA 2023. O resultado
+está em [`validacao/LISTA-RS.md`](validacao/LISTA-RS.md), com o veredito, a
+razão observada e a página de cada glossário.
+
+Quem trabalha com resíduos sólidos (em prefeitura, prestador, agência
+reguladora, consultoria ou pesquisa) pode ajudar muito:
+
+1. abra a [lista](validacao/LISTA-RS.md) e procure os códigos que você conhece;
+2. se discordar de um veredito, ou souber de um par que falta, abra uma
+   [issue de validação](https://github.com/theoadepaula/saneabr/issues/new?template=validacao-par.md)
+   com os dois códigos e a fonte (documento e página, ou a experiência de
+   preenchimento do formulário);
+3. cada decisão entra no pacote com a data, o responsável e a evidência.
+
+Água e esgoto e águas pluviais vêm depois, pelo mesmo caminho.
 
 ## Como funciona por dentro
 

@@ -8,7 +8,7 @@
 - **41 confirmados**, **39 a corrigir** (tipo de relação errado) e **67 rejeitados** (não são o mesmo conceito).
 - Dos 63 pares `candidata` (só semelhança de nome), 51 foram rejeitados.
 - Dos 8 pares propostos como `igual`, 5 se confirmam; IN014 → IRS0004, IN016 → IRS0002, IN030 → IRS0006 viram `mudou_definicao`.
-- **9 pares novos**, achados na leitura (entre eles CO119 → GTR1028, que estava como `sem_par`).
+- **10 pares novos**: 9 achados na leitura (entre eles CO119 → GTR1028, que estava como `sem_par`) e 1 achado na busca por trabalhos relacionados (IN031 → IRS3010, que a ANA trata como série contínua).
 - Nenhum par de **frota** (veículos) apareceu na correspondência: os campos de veículos do SINISA (GTR12xx) não têm Referência ao SNIS.
 
 Como marcar: `[x] concordo`, ou escreva a relação certa em `mudar para`. A mesma decisão vai na coluna `decisao_theo` de `correspondencia_rs_validacao.csv` (`ok`, ou o tipo de relação, ou `rejeitar`); depois rode `Rscript ferramentas/aplicar_validacao.R`.
@@ -225,6 +225,14 @@ Como marcar: `[x] concordo`, ou escreva a relação certa em `mudar para`. A mes
 - Proposto: `mudou_definicao` · Veredito: **confirmado** como `mudou_definicao`
 - Teste: razão SINISA/SNIS 1,03 (quartis 0,67 a 1,51; 371 municípios; SNIS 2022 × SINISA 2023)
 - Por quê: IN053 exclui a matéria orgânica; IRS3001 (GTR1026 / GTR1025) inclui a seletiva de orgânicos; razão 1,03 (SNIS: Glossario_Indicadores_RS2022.pdf p.12 · SINISA: Glossario_Indicadores_SINISA_2024.pdf p.2)
+- [ ] concordo · [ ] mudar para: ______
+
+**IN031 → IRS3010** *(par novo, achado na busca externa)*
+- SNIS IN031: Taxa de recuperação de materiais recicláveis (exceto matéria orgânica e rejeitos) em relação à quantidade total coletada
+- SINISA IRS3010: Recuperação de resíduos recicláveis secos e orgânicos em relação à quantidade total coletada
+- Proposto: `sem_par` · Veredito: **novo**: `mudou_definicao`
+- Teste: razão SINISA/SNIS 1,07 (quartis 0,68 a 2,09; 1.336 municípios com os dois valores acima de zero; 719 com zero em algum lado; SNIS 2022 × SINISA 2023)
+- Por quê: a ANA emenda os dois numa série só, para acompanhar a meta do PLANARES (AIR da Norma de Referência de indicadores de RSU, 29/08/2025, p.19, Figura 2: "SNIS IN031 / SINISA IRS 3010"). Mas o IRS3010 inclui orgânicos e o IN031 os exclui: mesma pergunta, numerador mais largo no SINISA. Quartis largos: a série emendada pede cuidado.
 - [ ] concordo · [ ] mudar para: ______
 
 ### Destinação
