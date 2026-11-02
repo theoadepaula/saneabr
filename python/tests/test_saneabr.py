@@ -76,7 +76,7 @@ def test_dicionarios_e_correspondencia():
     assert not co["tipo_relacao"].isin(["candidata", "sem_par"]).any()
     assert len(saneabr.correspondencia(candidatas=True)) > len(co)
     assert {"tipo_relacao", "evidencia", "qualidade_snis", "qualidade_sinisa"} <= set(co.columns)
-    assert not ((co["codigo_snis"] == "CO119") & (co["codigo_sinisa"] == "GTR1028")).any()
+    assert not ((co["codigo_snis"] == "CO119") & (co["codigo_sinisa"] == "GTR1028") & (co["tipo_relacao"] == "igual")).any()
     assert "codigo_renomeado" in set(saneabr.mudancas("rs")["tipo_mudanca"])
 
 

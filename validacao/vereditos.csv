@@ -1,0 +1,157 @@
+n,codigo_snis,codigo_sinisa,veredito,relacao_corrigida,tema,justificativa
+1,PO001,OGM3001,corrigir,mudou_unidade,,"Mesmo conceito (lei da Política Municipal de Saneamento, Lei 11.445); o SNIS aceita 'Em elaboração/Informação não disponível', o SINISA só Sim/Não"
+2,PO004,OGM1004,rejeitado,sem_par,,PO004 pergunta se a lei abrange o serviço de água; OGM1004 é o nome do prestador de água
+3,PO005,OGM1104,rejeitado,sem_par,,PO005 é abrangência da lei (esgoto); OGM1104 é o nome do prestador de esgoto
+4,PO006,OGM1206,rejeitado,sem_par,,PO006 é abrangência da lei (RSU); OGM1206 lista os serviços feitos pelo prestador
+5,PO007,OGM1304,rejeitado,sem_par,,PO007 é abrangência da lei (drenagem); OGM1304 é o nome do prestador de drenagem
+6,PO008,OGM1004,rejeitado,sem_par,,PO008 pergunta se há órgão regulador definido (água); OGM1004 é o nome do prestador
+7,PO009,COE0002,rejeitado,sem_par,,"PO009 é o nome da entidade reguladora de água; COE0002 é o nome genérico de 'outras entidades responsáveis', sem ligação com regulação"
+8,PO010,OGM1104,rejeitado,sem_par,,PO010 pergunta se há órgão regulador (esgoto); OGM1104 é o nome do prestador
+9,PO011,COE0002,rejeitado,sem_par,,PO011 é o nome do regulador de esgoto; COE0002 é o nome de 'outras entidades responsáveis'
+10,PO012,OGM1206,rejeitado,sem_par,,PO012 pergunta se há regulador de RSU; OGM1206 lista serviços do prestador
+11,PO013,COE0002,rejeitado,sem_par,,PO013 é o nome do regulador de RSU; COE0002 é o nome de 'outras entidades responsáveis'
+12,PO014,OGM1304,rejeitado,sem_par,,PO014 pergunta se há regulador de drenagem; OGM1304 é o nome do prestador
+13,PO015,COE0002,rejeitado,sem_par,,PO015 é o nome do regulador de drenagem; COE0002 é o nome de 'outras entidades responsáveis'
+14,PO017,OGM1004,rejeitado,sem_par,,PO017 trata de parâmetros de atendimento essencial (água); OGM1004 é o nome do prestador
+15,PO018,OGM1104,rejeitado,sem_par,,PO018 trata de parâmetros de atendimento essencial (esgoto); OGM1104 é o nome do prestador
+16,PO019,OGM1206,rejeitado,sem_par,,PO019 trata de parâmetros de atendimento essencial (RSU); OGM1206 lista serviços do prestador
+17,PO020,OGM1304,rejeitado,sem_par,,PO020 trata de parâmetros de atendimento essencial (drenagem); OGM1304 é o nome do prestador
+18,PO033,OGM3005,corrigir,mudou_unidade,,"Mesmo conceito (instrumento de aprovação do plano de saneamento: lei, decreto ou outro); concordância 0 porque as categorias são escritas de outro jeito ('lei municipal' x 'lei')"
+19,PO034,OGM1004,rejeitado,sem_par,,PO034 pergunta se o plano abrange água; OGM1004 é o nome do prestador
+20,PO035,OGM1104,rejeitado,sem_par,,PO035 pergunta se o plano abrange esgoto; OGM1104 é o nome do prestador
+21,PO036,OGM1206,rejeitado,sem_par,,PO036 pergunta se o plano abrange RSU; OGM1206 lista serviços do prestador
+22,PO037,OGM1304,rejeitado,sem_par,,PO037 pergunta se o plano abrange drenagem; OGM1304 é o nome do prestador
+23,PO043,OGM3303,corrigir,mudou_definicao,,"Nome do consórcio: o SNIS-RS pergunta pelo consórcio intermunicipal; o SINISA-GM, pelo consórcio público com atuação em saneamento"
+24,PO048,OGM3013,corrigir,igual,,"Mesma pergunta (o município possui PMGIRS conforme a Lei 12.305/2010?), mesma resposta Sim/Não; concordância 76%"
+25,PO052,OGM3305,corrigir,mudou_definicao,,CNPJ do consórcio; vale a ressalva do par PO043 sobre qual consórcio
+26,PO053,OGM3312,corrigir,mudou_definicao,,Sigla do consórcio; vale a ressalva do par PO043 sobre qual consórcio
+27,PO099,OGM1010,rejeitado,sem_par,,Campos livres de observações de formulários diferentes (políticas e planos x prestador de água); sem uso analítico
+28,RS003,GTR1402,rejeitado,sem_par,,"RS003 é coleta de RSS pelo próprio gerador ou empresa contratada por ele; GTR1402 é só a prestação pelo poder público ou contratadas por ele, apesar da Referência no glossário"
+29,RS020,GTR1402,corrigir,mudou_definicao,,"RS020 inclui coleta de RSS pelo gerador; GTR1402 só a do poder público. GTR1402 é campo de múltipla escolha, não Sim/Não (concordância 0 por isso)"
+30,RS045,GTR1402,confirmado,agregado,,RS045 (pela Prefeitura) é uma das partes de GTR1402 (poder público ou contratadas); GTR1402 é de múltipla escolha
+31,RS046,GTR1402,confirmado,agregado,,RS046 (empresa contratada pela Prefeitura) é a outra parte de GTR1402
+32,VA011,GTR1002,rejeitado,sem_par,,VA011 é km varridos por empresas; GTR1002 é a abrangência (urbana/rural) da rota de coleta. A Referência VA011 do glossário está no verbete errado; o par certo é VA039 (ou VA010+VA011) com GTR2002
+33,CA005,GTR1309,corrigir,mudou_definicao,,CA005 é a existência de catadores organizados (Sim/Não); GTR1309 é a quantidade de associações que prestam serviço ao município
+34,CO020,GTR1010,corrigir,mudou_definicao,,"Município de destino: no SNIS, só do RDO e RPU exportado; no SINISA, de cada rota, para qualquer resíduo. Concordância 0 só pela grafia ('Guapó - GO' x 'Guapó')"
+35,CO108,GTR1004,rejeitado,sem_par,,"CO108 é só RDO do agente público; GTR1004, somado por município, é a massa de todas as rotas (inclusive seletiva e limpeza urbana) do agente público. O par mais próximo é CO116"
+36,CO109,GTR1005,rejeitado,sem_par,,CO109 é só RDO de agentes privados; GTR1005 somado é a massa de todas as rotas do agente privado. O par mais próximo é CO117
+37,CO111,GTR1004,rejeitado,sem_par,,CO111 é RDO de todos os agentes; GTR1004 é só o agente público
+38,CO112,GTR1004,rejeitado,sem_par,,"CO112 é só RPU do agente público; razão 4,4 confirma que são coisas diferentes"
+39,CO113,GTR1004,rejeitado,sem_par,,CO113 é RPU de agentes privados; GTR1004 é do agente público
+40,CO115,GTR1004,rejeitado,sem_par,,CO115 é RPU de todos os agentes; GTR1004 é só o agente público
+41,CO116,GTR1004,corrigir,mudou_definicao,massa coletada,"Mesmo executor (agente público), mas o GTR1004 somado por município inclui rotas de coleta seletiva, podas e RCC/volumosos; razão 1,19"
+42,CO117,GTR1004,rejeitado,sem_par,,CO117 é do agente privado; GTR1004 é do público. O par certo é CO117 com GTR1005 (achado A3)
+43,CO119,GTR1004,rejeitado,sem_par,massa coletada,"CO119 é a massa de todos os agentes; GTR1004 é só o agente público. Razão perto de 1 é coincidência de mediana (quartis 0,32 a 1,52). Para a massa total, ver CO119 x GTR1028 (achado A1)"
+44,CO136,GTR0205,rejeitado,sem_par,,CO136 é o % da população atendida 1 vez por semana pela coleta regular; GTR0205 é a população coberta pela coleta seletiva (habitantes)
+45,CO142,GTR1004,rejeitado,sem_par,,CO142 é a massa de 'outros agentes'; GTR1004 é do agente público; razão 25
+46,FN206,GFI2211,rejeitado,sem_par,,FN206 é despesa dos agentes públicos com coleta; GFI2211 é despesa com coleta terceirizada. O par mais próximo é FN207 (achado A6)
+47,FN208,GFI2211,rejeitado,sem_par,,FN208 é despesa total (pública + privada) com coleta; GFI2211 é só a terceirizada da coleta indiferenciada
+48,FN220,GFI2218,rejeitado,sem_par,,"FN220 é despesa total com manejo de RSU; GFI2218 é só o serviço terceirizado sazonal; razão 0,02. O par certo é FN220 com GFI2208 + GFI2221 (achado A7)"
+49,GE201,GFI2237,rejeitado,sem_par,,GE201 pergunta se o prestador de RS presta outros serviços de saneamento; GFI2237 é investimento total
+50,IN002,IFR2001,rejeitado,sem_par,,IN002 é despesa por empregado (R$/empregado); IFR2001 é DEX por domicílio (R$/domicílio.ano)
+51,IN029,IRS1006,rejeitado,sem_par,,IN029 é massa de RCC per capita (kg/hab/ano); IRS1006 é massa de limpeza urbana per capita (kg/hab/dia)
+52,IN037,IRS3011,rejeitado,sem_par,,IN037 é a taxa de RSS na massa coletada; IRS3011 é a recuperação de recicláveis secos
+53,PO055,GTR1025,rejeitado,sem_par,,PO055 é um item Sim/Não do formulário de políticas e planos; GTR1025 é massa coletada
+54,PO056,GTR1026,rejeitado,sem_par,,PO056 é um item Sim/Não do formulário de políticas e planos; GTR1026 é massa da coleta seletiva
+55,PO058,GFI2213,rejeitado,sem_par,,PO058 é um item Sim/Não do formulário de políticas e planos; GFI2213 é despesa com transbordo
+56,PO059,GTR3209,rejeitado,sem_par,,PO059 é um item Sim/Não do formulário de políticas e planos; GTR3209 é o executor da disposição final
+57,PO061,GTR2001,rejeitado,sem_par,,PO061 é um item Sim/Não do formulário de políticas e planos; GTR2001 é o executor da varrição
+58,RS044,GTR1004,rejeitado,sem_par,,RS044 é a massa de RSS; GTR1004 é a massa coletada pelo agente público; razão 387
+59,TB008,GTR1005,rejeitado,sem_par,,TB008 é número de empregados; GTR1005 é massa (t/ano)
+60,TB011,GTR1004,rejeitado,sem_par,,TB011 é número de empregados administrativos; GTR1004 é massa
+61,TB012,GTR1005,rejeitado,sem_par,,TB012 é número de empregados administrativos; GTR1005 é massa
+62,UP008,GTR3121,rejeitado,sem_par,,UP008 é só RSS recebido na unidade; GTR3121 é o total de RSU recebido
+63,UP010,GTR3121,rejeitado,sem_par,,UP010 é só RCC recebido; GTR3121 é o total de RSU recebido
+64,UP011,GTR3121,rejeitado,sem_par,,UP011 é 'outros resíduos' recebidos; GTR3121 é o total
+65,UP030,GTR3233,corrigir,igual,,"Mesma pergunta (frequência do recobrimento dos resíduos no aterro). Conferir se as categorias (não realizado, diário, semanal) são as mesmas"
+66,UP067,GTR3121,rejeitado,sem_par,,UP067 é só podas (RPO) recebidas; GTR3121 é o total
+67,UP080,GTR3121,corrigir,agregado,,UP080 é o total recebido de cada município de origem; GTR3121 é a soma sobre os municípios. O par um a um é UP080 com GTR3120 (achado A8)
+68,UP090,GTR3238,corrigir,igual,,"CNPJ da unidade nos dois lados (no SINISA, no bloco da unidade de disposição final)"
+69,CB999,GFI1299,rejeitado,sem_par,,"Observações livres: no SNIS, do formulário de cobrança de águas pluviais; no SINISA, do bloco de tarifas de RS. A Referência existe, mas não há conceito a comparar"
+70,CB999,GFI2299,rejeitado,sem_par,,Observações livres de módulos diferentes (AP x RS); sem conceito a comparar
+71,CS010,GTR3132,corrigir,igual,,"Mesma definição (papel e papelão recuperados na triagem, exceto catadores avulsos e sucateiros). No SINISA é 'informação futura': ainda sem dado"
+72,CS010,GTR3130,rejeitado,sem_par,,"GTR3130 é a lista de equipamentos da unidade de triagem (glossários 2023 p.75 e 2024 p.76), não papel recuperado. A Referência CS010 está no verbete errado"
+73,FN218,GFI2201,confirmado,desmembrado,custos e despesas,"FN218 (despesa total dos agentes públicos com RSU) se reparte no SINISA em pessoal próprio de limpeza urbana (GFI2201), de manejo (GFI2209) e outras despesas; razão 0,80"
+74,FN218,GFI2209,confirmado,desmembrado,,"Parte de FN218: pessoal próprio do manejo; razão 0,41"
+75,FN219,GFI2202,confirmado,desmembrado,custos e despesas,"FN219 (despesa com agentes privados) se reparte em terceirizado de limpeza urbana (GFI2202) e de manejo (GFI2210); razão 0,85"
+76,FN219,GFI2210,confirmado,desmembrado,,"Parte de FN219: terceirizado do manejo; razão 0,95"
+77,TB003,GFI2260,corrigir,igual,,Mesmo conceito (pessoal próprio da varrição). No SINISA é 'informação futura': ainda sem dado
+78,TB003,GFI2259,corrigir,mudou_definicao,trabalhadores,"TB003 é só varredores do agente público; GFI2259 é todo o pessoal próprio da limpeza urbana; razão 1,63"
+79,TB004,GFI2262,corrigir,igual,,Mesmo conceito (varredores terceirizados). No SINISA é 'informação futura': ainda sem dado
+80,TB004,GFI2261,corrigir,mudou_definicao,trabalhadores,"TB004 é só varredores privados; GFI2261 é todo o pessoal terceirizado da limpeza urbana, inclusive catadores contratados; razão 2,12"
+81,UP001,GTR3001,confirmado,desmembrado,,"Nome da unidade: o SINISA separa por tipo de unidade (transbordo, processamento, disposição)"
+82,UP001,GTR3102,confirmado,desmembrado,,Nome da unidade de processamento ou tratamento
+83,UP001,GTR3202,confirmado,desmembrado,,Nome da unidade de disposição final
+84,UP002,GTR3006,confirmado,desmembrado,,"Ano de início da operação, separado por tipo de unidade (transbordo)"
+85,UP002,GTR3107,confirmado,desmembrado,,Ano de início da operação (processamento ou tratamento)
+86,UP003,GTR3101,confirmado,desmembrado,destinação,Tipo de unidade: o SINISA separa processamento (GTR3101) de disposição final (GTR3201). As categorias não coincidem uma a uma
+87,UP003,GTR3201,confirmado,desmembrado,destinação,"Tipo de unidade de disposição final (lixão, aterro sanitário, aterro controlado, aterro de inertes)"
+88,UP004,GTR3007,confirmado,desmembrado,,Operador ou executor da unidade (transbordo); o SINISA não tem a opção 'outro'
+89,UP004,GTR3108,confirmado,desmembrado,,Operador ou executor da unidade (processamento ou tratamento)
+90,UP007,GTR3011,corrigir,mudou_definicao,,UP007 é só RDO e RPU recebidos; GTR3011 é qualquer resíduo enviado ao transbordo
+91,UP007,GTR3012,corrigir,mudou_definicao,,"UP007 é RDO e RPU por município; GTR3012 é o total de RSU da unidade de transbordo, somado sobre os municípios"
+92,UP007,GTR3120,corrigir,mudou_definicao,,UP007 é só RDO e RPU recebidos; GTR3120 é todo resíduo do município enviado à unidade de processamento
+93,UP025,GTR3010,confirmado,desmembrado,,Municípios de origem dos resíduos; o SINISA separa por tipo de unidade e pede um município por linha
+94,UP025,GTR3111,confirmado,desmembrado,,Municípios de origem (processamento ou tratamento)
+95,UP050,GTR3008,confirmado,desmembrado,,"Tipo de licença ambiental, separado por tipo de unidade (transbordo)"
+96,UP050,GTR3109,confirmado,desmembrado,,Tipo de licença ambiental (processamento ou tratamento)
+97,UP051,GTR3004,confirmado,desmembrado,,A unidade esteve em operação no ano? (transbordo)
+98,UP051,GTR3105,confirmado,desmembrado,,A unidade esteve em operação no ano? (processamento ou tratamento)
+99,UP051,GTR3205,confirmado,desmembrado,,A unidade esteve em operação no ano? (disposição final)
+100,UP065,GTR3005,corrigir,mudou_definicao,,UP065 é o nome do proprietário; GTR3005 é o tipo de proprietário
+101,UP065,GTR3106,corrigir,mudou_definicao,,UP065 é o nome do proprietário; GTR3106 é o tipo de proprietário
+102,UP087,GTR3002,rejeitado,sem_par,,UP087 é o endereço (texto); GTR3002 é a latitude. O par certo é UP088 (latitude) (achado A5)
+103,UP087,GTR3003,rejeitado,sem_par,,UP087 é o endereço; GTR3003 é a longitude. O par certo é UP089
+104,UP087,GTR3103,rejeitado,sem_par,,UP087 é o endereço; GTR3103 é a latitude. O par certo é UP088
+105,UP087,GTR3104,rejeitado,sem_par,,UP087 é o endereço; GTR3104 é a longitude. O par certo é UP089
+106,UP087,GTR3203,rejeitado,sem_par,,UP087 é o endereço; GTR3203 é a latitude. O par certo é UP088
+107,UP087,GTR3204,rejeitado,sem_par,,UP087 é o endereço; GTR3204 é a longitude. O par certo é UP089
+108,VA010,GTR1002,rejeitado,sem_par,,VA010 é km varridos pela Prefeitura; GTR1002 é a abrangência da rota de coleta. Referência no verbete errado
+109,VA010,GTR2002,corrigir,agregado,limpeza urbana,"GTR2002 é a extensão varrida por agentes públicos e privados, ou seja VA010 + VA011 = VA039; razão 1,00 nos municípios em que só a Prefeitura varre"
+110,VA016,GTR1008,rejeitado,sem_par,,VA016 é varrição mecanizada (Sim/Não); GTR1008 é massa da rota. Referência no verbete errado
+111,VA016,GTR2004,corrigir,igual,,"Mesma pergunta, palavra por palavra (há varrição mecanizada no município?)"
+112,CS009,GTR3137,confirmado,igual,coleta seletiva,"Mesma definição (total de recicláveis recuperados, exceto orgânicos, rejeitos, catadores avulsos e sucateiros). No SINISA é 'informação futura': ainda sem dado"
+113,CS014,GTR3136,confirmado,igual,,"Mesma definição (outros recicláveis, exceto pneus e eletrônicos). 'Informação futura' no SINISA"
+114,CS051,GTR3131,confirmado,igual,,Mesma pergunta (houve recuperação em unidade de triagem mesmo sem coleta seletiva?)
+115,FN204,GFI1208,confirmado,igual,,Unidade adotada para a cobrança de tarifa (peso ou volume)
+116,IN014,IRS0004,corrigir,mudou_definicao,,"Numerador do SINISA inclui a coleta seletiva direta (GTR0203) e o denominador é a população urbana estimada pelo SINISA. Razão 1,00 (SNIS 2021), mas os dois ficam em 100% na maioria dos municípios"
+117,IN015,IRS0001,confirmado,igual,cobertura,"Mesma fórmula (população total coberta, pelo menos 1x por semana / população total). Razão 1,00, quartis 0,95 a 1,11, 4.554 municípios"
+118,IN016,IRS0002,corrigir,mudou_definicao,cobertura,"GTR0202 conta também coleta seletiva e indireta; o denominador urbano é estimado de forma diferente nos dois sistemas e o SNIS 2022 não tem população urbana. Razão 1,00 (SNIS 2021)"
+119,IN030,IRS0006,corrigir,mudou_definicao,cobertura,"CS050 é seletiva porta a porta da Prefeitura e parceiros; GTR0204 é qualquer executor. Razão 1,00 (SNIS 2021, 915 municípios)"
+120,CC019,GTR1401,confirmado,mudou_definicao,,"O SINISA inclui RCC de grandes geradores e é de múltipla escolha, não Sim/Não"
+121,CO050,GTR0202,confirmado,mudou_definicao,,"GTR0202 inclui coleta indireta e seletiva direta; razão 0,96 (SNIS 2021)"
+122,CO164,GTR0201,corrigir,igual,cobertura,"Mesma definição (população total atendida por coleta regular, pelo menos 1x por semana, no fim do ano); razão 1,01, quartis 0,96 a 1,12"
+123,CO165,GTR0203,confirmado,mudou_definicao,,"GTR0203 soma a coleta seletiva direta à indiferenciada direta; razão 0,96 (SNIS 2021)"
+124,CS011,GTR3133,corrigir,igual,,Mesma definição (plásticos recuperados). 'Informação futura' no SINISA
+125,CS012,GTR3134,corrigir,igual,,Mesma definição (metais recuperados). 'Informação futura' no SINISA
+126,CS013,GTR3135,corrigir,igual,,Mesma definição (vidros recuperados). 'Informação futura' no SINISA
+127,CS050,GTR0204,confirmado,mudou_definicao,coleta seletiva,"CS050 é a seletiva da Prefeitura e de parceiros; GTR0204 é de qualquer executor; razão 0,99 (SNIS 2021)"
+128,FN201,GFI1206,confirmado,mudou_definicao,,"Cobrança pelos serviços regulares: RSU no SNIS, manejo de resíduos domiciliares no SINISA; concordância 89%"
+129,FN202,GFI1207,confirmado,mudou_definicao,,Forma de cobrança; categorias redigidas de outro jeito (concordância 0 pela grafia)
+130,FN205,GFI1209,confirmado,mudou_definicao,,O SINISA acrescenta os serviços a grandes geradores aos eventuais; concordância 86%
+131,IN005,IFR1006,confirmado,mudou_definicao,receitas,"Receita arrecadada / despesa total (SNIS) x arrecadação de receita operacional direta / DEX (SINISA); razão 1,35"
+132,IN011,IFR1002,confirmado,mudou_definicao,receitas,"Receita arrecadada / população urbana (SNIS) x receita operacional direta / população total coberta (SINISA); razão 1,24 (SNIS 2021)"
+133,IN018,IFR0002,rejeitado,sem_par,trabalhadores,"IN018 é produtividade (kg por empregado por dia); IFR0002 é empregados por mil habitantes. O 'similar no SNIS' do glossário está errado; razão 0,0008"
+134,IN018,IFR0001,rejeitado,sem_par,,"IFR0001 é pessoal de limpeza urbana por mil habitantes; o glossário 2024 o liga ao IN044, não ao IN018"
+135,IN022,IRS1005,confirmado,mudou_definicao,per capita,"GTR1025 inclui a coleta seletiva; o denominador é a população coberta pela coleta indiferenciada. Razão 1,00 (quartis 0,71 a 1,28)"
+136,IN028,IRS1004,confirmado,mudou_definicao,per capita,"IRS1004 divide pela população total (não pela atendida) e usa o GTR1028, mais amplo que o CO119; razão 0,91 (quartis 0,56 a 1,29)"
+137,IN032,IRS1008,confirmado,mudou_definicao,per capita,"IN032 é recicláveis recuperados / população urbana; IRS1008 é secos + orgânicos recuperados / população coberta pela seletiva; razão 1,33 (SNIS 2021)"
+138,IN034,IRS3006,corrigir,igual,coleta seletiva,"Mesma fórmula (papel / total recuperado); razão 1,00 em 375 municípios"
+139,IN035,IRS3007,corrigir,igual,,"Mesma fórmula (plástico / total recuperado); razão 1,00"
+140,IN038,IRS3008,corrigir,igual,,"Mesma fórmula (metais / total recuperado); razão 0,99"
+141,IN039,IRS3009,corrigir,igual,,"Mesma fórmula (vidro / total recuperado); razão 1,00"
+142,IN044,IFR0001,rejeitado,sem_par,,IN044 é km varridos por varredor por dia; IFR0001 é pessoal de limpeza urbana por mil habitantes. O 'similar no SNIS' do glossário está errado
+143,IN053,IRS3001,confirmado,mudou_definicao,coleta seletiva,"IN053 exclui a matéria orgânica; IRS3001 (GTR1026 / GTR1025) inclui a seletiva de orgânicos; razão 1,03"
+144,IN054,IRS1007,confirmado,mudou_definicao,per capita,"Denominador muda de população urbana para população coberta pela seletiva; razão 1,18 (SNIS 2021)"
+145,FN213,GFI2204,corrigir,igual,custos e despesas,"Mesma despesa (varrição terceirizada); só a grafia da unidade muda (R$/ano x Reais por ano); razão 1,07"
+146,FN221,GFI1203,corrigir,mudou_definicao,receitas,"FN221 é a receita orçada de taxas e tarifas; GFI1203 é a receita operacional realizada (direta + indireta). Razão 1,10, mas são conceitos contábeis diferentes"
+147,FN222,GFI1204,corrigir,mudou_definicao,receitas,"Receita arrecadada com taxas e tarifas (SNIS) x arrecadação de receita operacional direta (SINISA); razão 1,11"
+A1,CO119,GTR1028,novo,mudou_definicao,massa coletada,"Massa total coletada. Ficou como sem_par na spec. GTR1028 inclui a coleta seletiva (também de cooperativas), podas e RCC/volumosos de pequenos geradores; o CO119 não. Razão 1,12 (quartis 0,88 a 1,67)"
+A2,CO119,GTR1025,novo,mudou_definicao,massa coletada,"Massa das rotas domiciliares (indiferenciada + seletiva, menos rejeitos) é o conceito mais próximo do CO119; razão 0,97 (quartis 0,66 a 1,16)"
+A3,CO117,GTR1005,novo,mudou_definicao,,"Massa coletada pelo agente privado; o GTR1005 somado por município inclui rotas seletivas e de limpeza urbana; razão 1,09"
+A4,VA039,GTR2002,novo,igual,limpeza urbana,"Extensão total de sarjetas varridas (pública + privada) nos dois lados; razão 1,00 em 788 municípios"
+A5,UP088,GTR3103,novo,desmembrado,,"Latitude da unidade (também GTR3002 no transbordo e GTR3203 na disposição final; UP089 para longitude: GTR3003, GTR3104, GTR3204)"
+A6,FN207,GFI2211,novo,mudou_definicao,custos e despesas,"Despesa com coleta terceirizada: RDO e RPU no SNIS; só coleta indiferenciada de domiciliares no SINISA; razão 0,84"
+A7,FN220,GFI2221,novo,desmembrado,custos e despesas,"Despesa total com RSU: o SINISA separa DEX de manejo (GFI2221) e de limpeza urbana (GFI2208); com só o GFI2221 a razão é 0,75"
+A8,UP080,GTR3120,novo,igual,destinação,Quantidade recebida na unidade vinda de cada município de origem; nível de unidade (não testado empiricamente)
+A9,TB001,GFI2264,novo,mudou_definicao,trabalhadores,"TB001 é coletadores e motoristas do agente público; GFI2264 é todo o pessoal próprio do manejo; razão 1,00 (quartis 0,67 a 1,67)"
