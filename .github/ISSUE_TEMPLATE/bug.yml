@@ -1,0 +1,58 @@
+name: Bug
+description: Algo não funciona como deveria no pacote R ou na biblioteca Python.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por avisar. Se o problema é um par SNIS ↔ SINISA ou um texto de dicionário, use o formulário de **validação**. Se um número parece errado, confira antes se ele é igual na planilha oficial: o pacote não corrige dado do Ministério, só o lê com fidelidade.
+  - type: dropdown
+    id: linguagem
+    attributes:
+      label: Linguagem
+      multiple: true
+      options:
+        - R
+        - Python
+    validations:
+      required: true
+  - type: input
+    id: versao
+    attributes:
+      label: Versão do saneabr
+      description: 'R: packageVersion("saneabr"). Python: pip show saneabr. Se instalou pelo GitHub, diga o commit, se souber.'
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: ambiente
+    attributes:
+      label: Sistema operacional e versão do R ou do Python
+      placeholder: "Windows 11, R 4.5.2 / Ubuntu 24.04, Python 3.12"
+    validations:
+      required: true
+  - type: input
+    id: chamada
+    attributes:
+      label: Sistema, módulo, ano e tabela
+      placeholder: 'ler("snis", "rs", 2016, tabela = "indicadores")'
+  - type: textarea
+    id: reprex
+    attributes:
+      label: Exemplo reproduzível
+      description: O menor código que mostra o problema, com a saída e a mensagem de erro completas. No R, o pacote reprex ajuda.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: O que você esperava
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Algo mais
+      description: Se o mesmo código dá resultado diferente em R e em Python, diga aqui. Isso é um bug sério.

@@ -1,0 +1,37 @@
+name: Pedido de recurso
+description: Propor uma função, um módulo ou um ano que o saneabr ainda não lê, ou uma melhoria na documentação.
+title: "[recurso] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ideias ainda soltas e perguntas cabem melhor nas [Discussions](https://github.com/theoadepaula/saneabr/discussions). Toda mudança entra nas duas linguagens, R e Python, pela spec compartilhada.
+  - type: textarea
+    id: problema
+    attributes:
+      label: Que problema isso resolve
+      description: O que você está tentando fazer e onde o pacote atrapalha.
+    validations:
+      required: true
+  - type: textarea
+    id: proposta
+    attributes:
+      label: O que você propõe
+      description: "Se for ler um módulo ou um ano novo, diga qual (ex.: água e esgoto do SNIS 2020) e, se souber, o arquivo e o layout."
+    validations:
+      required: true
+  - type: textarea
+    id: alternativas
+    attributes:
+      label: Como você contorna hoje
+  - type: dropdown
+    id: ajuda
+    attributes:
+      label: Você pode ajudar a implementar?
+      options:
+        - Sim, em R
+        - Sim, em Python
+        - Sim, nas duas
+        - Posso ajudar com dados ou documentação
+        - Não agora

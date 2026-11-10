@@ -1,0 +1,85 @@
+name: Validação de par ou de dicionário
+description: Discordar de um par SNIS ↔ SINISA, propor um par que falta ou apontar um erro num dicionário. Não precisa programar.
+title: "[validação] "
+labels: ["validação"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por ajudar a validar. A lista dos pares de resíduos sólidos, com veredito, teste nos dados e página do glossário, está em [`validacao/LISTA-RS.md`](https://github.com/theoadepaula/saneabr/blob/master/validacao/LISTA-RS.md). O passo a passo está no [guia de contribuição](https://github.com/theoadepaula/saneabr/blob/master/CONTRIBUTING.md#1-ajudar-a-validar-sem-programar).
+
+        Preencha o que souber; só os campos marcados são obrigatórios.
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: O que você quer validar
+      options:
+        - Um par da correspondência SNIS ↔ SINISA (discordo do veredito)
+        - Um par que falta na correspondência
+        - Um verbete de dicionário (nome, definição, unidade, fórmula, página)
+        - Outro
+    validations:
+      required: true
+  - type: dropdown
+    id: fonte
+    attributes:
+      label: Fonte
+      options:
+        - SNIS
+        - SINISA
+        - SNIS e SINISA (um par)
+    validations:
+      required: true
+  - type: dropdown
+    id: modulo
+    attributes:
+      label: Módulo
+      options:
+        - Resíduos sólidos (rs)
+        - Água e esgoto (ae)
+        - Águas pluviais (ap)
+        - Gestão municipal (gm)
+    validations:
+      required: true
+  - type: input
+    id: ano
+    attributes:
+      label: Ano
+      description: Ano de referência dos dados ou do glossário em que você viu o problema.
+      placeholder: "2022 (SNIS) / 2023 (SINISA)"
+    validations:
+      required: true
+  - type: input
+    id: codigo
+    attributes:
+      label: Código do indicador ou da variável
+      description: Para um par, os dois códigos.
+      placeholder: "CO119 → GTR1028"
+    validations:
+      required: true
+  - type: textarea
+    id: hoje
+    attributes:
+      label: O que o saneabr diz hoje
+      description: O veredito e o tipo de relação na lista, o texto do dicionário, ou "não está na lista".
+      placeholder: "Veredito: par novo, mudou_definicao"
+  - type: textarea
+    id: errado
+    attributes:
+      label: O que está errado e o que você propõe
+      description: "Para um par, o tipo de relação certo: igual, mudou_definicao, mudou_unidade, desmembrado, agregado ou rejeitar."
+    validations:
+      required: true
+  - type: textarea
+    id: evidencia
+    attributes:
+      label: Evidência ou link
+      description: Documento e página (glossário, manual, nota técnica), link, uma conta feita com os dados ou a sua experiência de preencher o formulário (diga de onde ela vem).
+      placeholder: "Glossario_Informacoes_SINISA_2024.pdf, p. 43: ..."
+    validations:
+      required: true
+  - type: input
+    id: credito
+    attributes:
+      label: Como quer ser creditado (opcional)
+      description: Nome e instituição, se quiser. Em branco, creditamos o seu usuário do GitHub.
