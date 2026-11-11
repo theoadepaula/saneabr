@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Dúvidas de uso
+    url: https://github.com/theoadepaula/saneabr/discussions
+    about: Perguntas sobre como usar o pacote, o SNIS ou o SINISA vão para as Discussions.
+  - name: Guia de contribuição
+    url: https://github.com/theoadepaula/saneabr/blob/master/CONTRIBUTING.md
+    about: Como ajudar a validar a correspondência e como mexer no código.

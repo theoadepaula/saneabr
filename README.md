@@ -48,13 +48,22 @@ library(saneabr)
 rs <- ler("snis", "rs", 2022)   # resíduos sólidos, 2022: 5.060 municípios
 ```
 
-> **Fase atual (v0.1, experimental).** Lê o módulo de **resíduos sólidos**: SNIS
-> 2014–2022 e SINISA 2023–2024. Os demais módulos e anos já estão no catálogo e
-> podem ser baixados. Ainda não está no CRAN nem no PyPI: instale pelo GitHub
-> (veja abaixo).
+## Status: em validação pela comunidade, ainda não no CRAN/PyPI
+
+O saneabr está na **v0.1, experimental**, e ainda **não foi publicado no CRAN
+nem no PyPI**: instale pelo GitHub ([veja abaixo](#instalação)). Ele lê o
+módulo de **resíduos sólidos** (SNIS 2014–2022 e SINISA 2023–2024); os demais
+módulos e anos já estão no catálogo e podem ser baixados.
+
+Antes de publicar, o pacote passa por uma **validação aberta**: a tabela que
+liga os códigos de resíduos sólidos do SNIS aos do SINISA foi montada a partir
+dos glossários oficiais e testada nos dados, mas precisa do olho de quem
+trabalha com o tema. **Você pode ajudar sem programar**:
+[veja como](#ajude-a-validar).
 
 ## Sumário
 
+- [Status: em validação pela comunidade](#status-em-validação-pela-comunidade-ainda-não-no-cranpypi)
 - [Por que este pacote existe](#por-que-este-pacote-existe)
 - [O que são o SNIS e o SINISA](#o-que-são-o-snis-e-o-sinisa)
 - [Instalação](#instalação)
@@ -62,6 +71,7 @@ rs <- ler("snis", "rs", 2022)   # resíduos sólidos, 2022: 5.060 municípios
 - [Funções](#funções)
 - [O que já dá para ler](#o-que-já-dá-para-ler)
 - [Cuidados ao comparar SNIS e SINISA](#cuidados-ao-comparar-snis-e-sinisa)
+- [Ajude a validar](#ajude-a-validar)
 - [Como funciona por dentro](#como-funciona-por-dentro)
 - [Licença e dados](#licença-e-dados)
 - [Como citar](#como-citar)
@@ -124,8 +134,14 @@ install.packages("archive")
 **Python** (versão de desenvolvimento, enquanto não está no PyPI):
 
 ```sh
+pip install "git+https://github.com/theoadepaula/saneabr#subdirectory=python"
+
+# com suporte aos arquivos .rar do SINISA 2023:
 pip install "saneabr[rar] @ git+https://github.com/theoadepaula/saneabr#subdirectory=python"
 ```
+
+Os dois pacotes moram em subpastas do mesmo repositório (`r/` e `python/`), por
+isso o `subdir` e o `#subdirectory`.
 
 No Linux, ler arquivos rar exige o `bsdtar` (`sudo apt install libarchive-tools`)
 ou o `unrar`. No Windows e no macOS, nada a fazer.
@@ -314,7 +330,10 @@ crédito:
 Se você conhece outro trabalho, abra uma issue: ele entra aqui com o devido
 crédito.
 
-### Ajude a validar
+## Ajude a validar
+
+> **É o principal pedido de ajuda do projeto, e não exige programar.** Basta
+> uma conta gratuita no GitHub e conhecer os campos do SNIS ou do SINISA.
 
 A tabela de correspondência de resíduos sólidos está **em validação**. Cada um
 dos 147 pares documentados (mais 10 pares novos) foi lido nos glossários e,
@@ -326,12 +345,23 @@ razão observada e a página de cada glossário.
 Quem trabalha com resíduos sólidos (em prefeitura, prestador, agência
 reguladora, consultoria ou pesquisa) pode ajudar muito:
 
-1. abra a [lista](validacao/LISTA-RS.md) e procure os códigos que você conhece;
-2. se discordar de um veredito, ou souber de um par que falta, abra uma
-   [issue de validação](https://github.com/theoadepaula/saneabr/issues/new?template=validacao-par.md)
-   com os dois códigos e a fonte (documento e página, ou a experiência de
-   preenchimento do formulário);
-3. cada decisão entra no pacote com a data, o responsável e a evidência.
+1. abra a [lista](validacao/LISTA-RS.md) e procure os códigos que você conhece
+   (ela começa pelos pares mais usados: massa coletada, cobertura, per capita,
+   custos, receitas, coleta seletiva, destinação, limpeza urbana e
+   trabalhadores);
+2. se discordar de um veredito, ou souber de um par que falta, preencha o
+   formulário [**Validação de par ou de dicionário**](https://github.com/theoadepaula/saneabr/issues/new?template=validacao.yml):
+   ano, código, fonte, o que está errado e a evidência (documento e página, um
+   link, ou a sua experiência de preencher o formulário);
+3. se concordar, diga isso na [issue de validação do
+   tema](https://github.com/theoadepaula/saneabr/issues?q=is%3Aissue+label%3Avalida%C3%A7%C3%A3o):
+   uma confirmação de quem preenche o formulário também conta;
+4. cada decisão entra no pacote com a data, o responsável e a evidência, e quem
+   ajudou é creditado.
+
+O mesmo formulário serve para erros nos **dicionários** (nome, definição,
+unidade, fórmula ou página de um código). O passo a passo completo está no
+[guia de contribuição](CONTRIBUTING.md#1-ajudar-a-validar-sem-programar).
 
 Água e esgoto e águas pluviais vêm depois, pelo mesmo caminho.
 
@@ -389,9 +419,21 @@ SNIS/SINISA) e, se o pacote ajudou, cite o saneabr.
 
 ## Contribuir
 
-Erros, dúvidas e sugestões são bem-vindos nas
-[issues](https://github.com/theoadepaula/saneabr/issues). Para mexer no código
-ou na especificação, veja o [guia de contribuição](CONTRIBUTING.md).
+Toda ajuda é bem-vinda, e a mais urgente não exige código:
+[validar a correspondência](#ajude-a-validar).
+
+- **Validação de par ou de dicionário, bug ou pedido de recurso**: abra uma
+  [issue](https://github.com/theoadepaula/saneabr/issues/new/choose) pelo
+  formulário de cada caso.
+- **Dúvidas de uso**: nas
+  [Discussions](https://github.com/theoadepaula/saneabr/discussions).
+- **Código ou especificação**: o [guia de contribuição](CONTRIBUTING.md) explica
+  como rodar os pacotes, os testes e por que toda mudança vale para R e Python
+  juntos. Issues marcadas com
+  [`good first issue`](https://github.com/theoadepaula/saneabr/labels/good%20first%20issue)
+  são um bom começo.
+
+Quem participa segue o [código de conduta](CODE_OF_CONDUCT.md).
 
 ## Pacotes relacionados
 
